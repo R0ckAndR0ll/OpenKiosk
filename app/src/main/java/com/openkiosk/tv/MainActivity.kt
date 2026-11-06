@@ -125,6 +125,8 @@ class MainActivity : Activity() {
             displayZoomControls = false
             useWideViewPort = true
             loadWithOverviewMode = true
+            // Permite a la página saber que corre dentro del kiosco (p. ej. ocultar botones de prueba).
+            userAgentString = "$userAgentString OpenKiosk/${BuildConfig.VERSION_NAME}"
         }
         w.webChromeClient = WebChromeClient()
         w.webViewClient = KioskClient()
@@ -207,7 +209,8 @@ class MainActivity : Activity() {
                 if (event.action == KeyEvent.ACTION_UP) openSettings(requirePin = true)
                 return true
             }
-            KeyEvent.KEYCODE_DPAD_CENTER, KeyEvent.KEYCODE_ENTER -> {
+            // OK corto: launcher de apps. OK sostenido 3 s: ajustes del anfitrión.
+            KeyEvent.KEYCODE_DPAD_CENTER, KeyEvent.KEYCODE_ENTER, KeyEvent.KEYCODE_NUMPAD_ENTER -> {
                 val now = SystemClock.uptimeMillis()
                 if (event.action == KeyEvent.ACTION_DOWN) {
                     if (event.repeatCount == 0) {
@@ -216,11 +219,11 @@ class MainActivity : Activity() {
                     } else if (!longPressFired && now - centerDownAt >= LONG_PRESS_MS) {
                         longPressFired = true
                         openSettings(requirePin = true)
-                        return true
                     }
-                } else if (event.action == KeyEvent.ACTION_UP && longPressFired) {
-                    return true
+                } else if (event.action == KeyEvent.ACTION_UP && !longPressFired && prefs.isConfigured) {
+                    startActivity(Intent(this, AppsActivity::class.java))
                 }
+                return true
             }
         }
         return super.dispatchKeyEvent(event)

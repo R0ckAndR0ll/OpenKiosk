@@ -7,10 +7,23 @@
     <!-- Opcional: si se concede por ADB, permite que el arranque automático funcione en Android 10+ -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
+    <!-- Para listar y abrir las apps de streaming instaladas (Android 11+) -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
+    </queries>
+
     <uses-feature android:name="android.software.leanback" android:required="false" />
     <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
 
     <application
+        android:name=".OpenKioskApp"
         android:allowBackup="false"
         android:banner="@drawable/banner"
         android:icon="@drawable/ic_launcher"
@@ -48,6 +61,23 @@
             android:exported="false"
             android:theme="@style/Theme.OpenKiosk.Settings"
             android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".AppsActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout|keyboard|keyboardHidden|navigation|uiMode"
+            android:exported="false" />
+
+        <!-- Detecta pausa/silencio prolongado en otras apps para volver a la bienvenida.
+             Solo lee si algo se reproduce; nunca títulos ni notificaciones. -->
+        <service
+            android:name=".MediaWatcherService"
+            android:exported="true"
+            android:label="@string/media_service_label"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
 
         <receiver
             android:name=".BootReceiver"

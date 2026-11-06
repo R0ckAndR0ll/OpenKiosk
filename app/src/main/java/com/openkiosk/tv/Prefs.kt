@@ -30,6 +30,21 @@ class Prefs(context: Context) {
         get() = sp.getString(K_HOSTS, "") ?: ""
         set(v) = sp.edit().putString(K_HOSTS, v).apply()
 
+    /** Paquetes de las apps que verá el huésped, en orden (vacío = streaming conocido instalado). */
+    var allowedApps: List<String>
+        get() = (sp.getString(K_APPS, "") ?: "").split(',').map { it.trim() }.filter { it.isNotEmpty() }
+        set(v) = sp.edit().putString(K_APPS, v.joinToString(",")).apply()
+
+    /** Minutos en el launcher sin abrir una app antes de volver a la bienvenida (0 = nunca). */
+    var launcherIdleMinutes: Int
+        get() = sp.getInt(K_LAUNCHER_IDLE, 5)
+        set(v) = sp.edit().putInt(K_LAUNCHER_IDLE, v).apply()
+
+    /** Minutos con una app en pausa o sin sonido antes de volver a la bienvenida (0 = nunca). */
+    var mediaIdleMinutes: Int
+        get() = sp.getInt(K_MEDIA_IDLE, 10)
+        set(v) = sp.edit().putInt(K_MEDIA_IDLE, v).apply()
+
     val isConfigured: Boolean get() = url.isNotBlank()
 
     companion object {
@@ -37,5 +52,8 @@ class Prefs(context: Context) {
         private const val K_NAME = "property_name"
         private const val K_RELOAD = "reload_minutes"
         private const val K_HOSTS = "extra_hosts"
+        private const val K_APPS = "allowed_apps"
+        private const val K_LAUNCHER_IDLE = "launcher_idle_minutes"
+        private const val K_MEDIA_IDLE = "media_idle_minutes"
     }
 }

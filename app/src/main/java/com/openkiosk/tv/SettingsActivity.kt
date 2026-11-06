@@ -123,8 +123,20 @@ class SettingsActivity : Activity() {
             if (sec.hasTotp) R.string.sec_status_on else R.string.sec_status_off
         )
         findViewById<TextView>(R.id.version).text = getString(R.string.version_fmt, BuildConfig.VERSION_NAME)
+        val launcherIdle = findViewById<EditText>(R.id.launcher_idle)
+        val mediaIdle = findViewById<EditText>(R.id.media_idle)
+        launcherIdle.setText(prefs.launcherIdleMinutes.toString())
+        mediaIdle.setText(prefs.mediaIdleMinutes.toString())
+        findViewById<TextView>(R.id.media_status).text = getString(
+            if (MediaWatcherService.isEnabled(this)) R.string.media_status_on else R.string.media_status_off
+        )
 
-        findViewById<Button>(R.id.save).setOnClickListener { save(url, name, pin, reload, hosts) }
+        findViewById<Button>(R.id.apps).setOnClickListener { chooseApps() }
+        findViewById<Button>(R.id.save).setOnClickListener {
+            prefs.launcherIdleMinutes = launcherIdle.text.toString().trim().toIntOrNull()?.coerceIn(0, 240) ?: 5
+            prefs.mediaIdleMinutes = mediaIdle.text.toString().trim().toIntOrNull()?.coerceIn(0, 240) ?: 10
+            save(url, name, pin, reload, hosts)
+        }
         findViewById<Button>(R.id.security).setOnClickListener {
             if (!sec.hasPin) {
                 pin.error = getString(R.string.err_pin_first)
@@ -178,6 +190,28 @@ class SettingsActivity : Activity() {
             startActivity(Intent(this, SecuritySetupActivity::class.java))
         }
         finish()
+    }
+
+    /** Lista de apps instaladas para que el anfitrión elija cuáles ve el huésped (en ese orden). */
+    private fun chooseApps() {
+        val all = AppCatalog.installed(this)
+        if (all.isEmpty()) {
+            toast(getString(R.string.apps_none_installed))
+            return
+        }
+        val current = AppCatalog.allowed(this, prefs).map { it.pkg }.toSet()
+        val checked = BooleanArray(all.size) { all[it].pkg in current }
+        AlertDialog.Builder(this)
+            .setTitle(R.string.apps_dialog_title)
+            .setMultiChoiceItems(all.map { it.label }.toTypedArray(), checked) { _, i, on -> checked[i] = on }
+            .setPositiveButton(R.string.btn_save) { _, _ ->
+                val keepOrder = prefs.allowedApps.ifEmpty { AppCatalog.DEFAULT_STREAMING }
+                val chosen = all.indices.filter { checked[it] }.map { all[it].pkg }
+                prefs.allowedApps = chosen.sortedBy { pkg -> keepOrder.indexOf(pkg).let { if (it < 0) Int.MAX_VALUE else it } }
+                toast(getString(R.string.toast_saved))
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
     }
 
     private fun codeInput(hint: String, numeric: Boolean, max: Int) = EditText(this).apply {

@@ -148,6 +148,50 @@
                     android:textColor="@color/ok_ink" />
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_launcher_idle"
+                    android:textColor="@color/ok_sea"
+                    android:textSize="13sp" />
+
+                <EditText
+                    android:id="@+id/launcher_idle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:maxLength="3"
+                    android:singleLine="true"
+                    android:textColor="@color/ok_ink" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_media_idle"
+                    android:textColor="@color/ok_sea"
+                    android:textSize="13sp" />
+
+                <EditText
+                    android:id="@+id/media_idle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:maxLength="3"
+                    android:singleLine="true"
+                    android:textColor="@color/ok_ink" />
+
+                <TextView
+                    android:id="@+id/media_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:textColor="@color/ok_muted"
+                    android:textSize="13sp" />
+
+                <TextView
                     android:id="@+id/security_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -169,6 +213,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
                 android:text="@string/btn_save" />
+
+            <Button
+                android:id="@+id/apps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:text="@string/btn_apps" />
 
             <Button
                 android:id="@+id/security"

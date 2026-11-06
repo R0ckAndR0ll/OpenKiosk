@@ -10,7 +10,7 @@
     <string name="btn_save">Guardar</string>
     <string name="btn_home">Usar como pantalla de inicio</string>
     <string name="btn_system">Ajustes del sistema</string>
-    <string name="help_text">Abrir ajustes: presiona ATRÁS 5 veces, mantén OK 3 segundos, o presiona MENÚ.\n\nPara que arranque solo al encender la TV, pon OpenKiosk como pantalla de inicio. Si tu TV no ofrece esa opción, desde una computadora ejecuta:\nadb shell cmd package set-home-activity com.openkiosk.tv/.MainActivity</string>
+    <string name="help_text">Huésped: OK abre sus apps. Ajustes del anfitrión: presiona ATRÁS 5 veces, mantén OK 3 segundos, o presiona MENÚ.\n\nPara que arranque solo al encender la TV, pon OpenKiosk como pantalla de inicio. Si tu TV no ofrece esa opción, desde una computadora ejecuta:\nadb shell cmd package set-home-activity com.openkiosk.tv/.MainActivity</string>
     <string name="version_fmt">OpenKiosk %1$s · libre y de código abierto (GPL-3.0)</string>
 
     <string name="pin_title">PIN del anfitrión</string>
@@ -59,4 +59,17 @@
     <string name="err_totp">El código no coincide. Revisa la hora de tu teléfono e intenta de nuevo.</string>
     <string name="sec_qr_desc">Código QR para la app autenticadora</string>
     <string name="err_pin">El PIN debe tener exactamente 6 dígitos</string>
+
+    <string name="apps_title">Tus apps</string>
+    <string name="apps_subtitle">Elige qué ver. La bienvenida regresa sola después de unos minutos.</string>
+    <string name="apps_hint">ATRÁS · VOLVER A LA BIENVENIDA</string>
+    <string name="apps_empty">Aún no hay apps configuradas. El anfitrión puede elegirlas en los ajustes.</string>
+    <string name="btn_apps">Apps del huésped</string>
+    <string name="apps_dialog_title">Apps que puede abrir el huésped</string>
+    <string name="apps_none_installed">No se encontraron apps de TV en este equipo</string>
+    <string name="label_launcher_idle">Volver a la bienvenida desde las apps después de (minutos, 0 = nunca)</string>
+    <string name="label_media_idle">Volver a la bienvenida si una app queda en pausa o sin sonido por (minutos, 0 = nunca)</string>
+    <string name="media_status_on">Detección de pausa: activa.</string>
+    <string name="media_status_off">Detección de pausa: requiere un permiso único. Desde una computadora: adb shell cmd notification allow_listener com.openkiosk.tv/com.openkiosk.tv.MediaWatcherService</string>
+    <string name="media_service_label">Detección de reproducción de OpenKiosk</string>
 </resources>

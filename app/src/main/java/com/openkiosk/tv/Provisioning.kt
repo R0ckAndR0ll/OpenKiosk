@@ -21,8 +21,14 @@ object Provisioning {
     const val EXTRA_SET_PIN = "set_pin"
     const val EXTRA_RELOAD = "reload_minutes"
     const val EXTRA_HOSTS = "allowed_hosts"
+    const val EXTRA_APPS = "allowed_apps"
+    const val EXTRA_LAUNCHER_IDLE = "launcher_idle"
+    const val EXTRA_MEDIA_IDLE = "media_idle"
 
-    private val ALL = listOf(EXTRA_URL, EXTRA_NAME, EXTRA_PIN, EXTRA_SET_PIN, EXTRA_RELOAD, EXTRA_HOSTS)
+    private val ALL = listOf(
+        EXTRA_URL, EXTRA_NAME, EXTRA_PIN, EXTRA_SET_PIN, EXTRA_RELOAD, EXTRA_HOSTS,
+        EXTRA_APPS, EXTRA_LAUNCHER_IDLE, EXTRA_MEDIA_IDLE,
+    )
 
     /** @return true si se aplicó una configuración nueva. */
     fun apply(context: Context, prefs: Prefs, intent: Intent?): Boolean {
@@ -54,6 +60,9 @@ object Provisioning {
             intent.getStringExtra(EXTRA_NAME)?.let { prefs.propertyName = it.trim().take(60) }
             intent.getStringExtra(EXTRA_RELOAD)?.toIntOrNull()?.let { prefs.reloadMinutes = it.coerceIn(0, 1440) }
             intent.getStringExtra(EXTRA_HOSTS)?.let { prefs.extraHosts = it.trim() }
+            intent.getStringExtra(EXTRA_APPS)?.let { v -> prefs.allowedApps = v.split(',').map { it.trim() }.filter { it.isNotEmpty() } }
+            intent.getStringExtra(EXTRA_LAUNCHER_IDLE)?.toIntOrNull()?.let { prefs.launcherIdleMinutes = it.coerceIn(0, 240) }
+            intent.getStringExtra(EXTRA_MEDIA_IDLE)?.toIntOrNull()?.let { prefs.mediaIdleMinutes = it.coerceIn(0, 240) }
             intent.getStringExtra(EXTRA_SET_PIN)?.let {
                 if (SecurityStore.isValidPin(it)) sec.setPin(it)
                 else toast(context, context.getString(R.string.err_pin))

@@ -54,7 +54,27 @@ adb shell am start -n com.openkiosk.tv/.MainActivity \
 ```
 Once a PIN exists, changes by ADB require `--es pin <current PIN or authenticator code>`. The recovery code and the authenticator are set up on the TV screen, because they must be seen to be saved.
 
-**Open settings later:** press **BACK 5 times**, or hold **OK** for 3 seconds, or press **MENU**.
+**Open settings later:** press **BACK 5 times**, or hold **OK** for 3 seconds, or press **MENU**. A short OK opens the guest apps.
+
+### Guest flow
+
+| Moment | What happens |
+|---|---|
+| TV turns on | Welcome screen |
+| Guest presses **OK** | An elegant launcher with the streaming apps the host allowed |
+| 5 min on the launcher without opening an app | Back to the welcome screen |
+| An app is paused or silent for 10 min | Back to the welcome screen (needs the permission below) |
+| Something is playing | Never interrupted |
+
+Choose the apps in Settings → **Guest apps** (if you choose none, the usual streaming apps that are installed are shown). Both times are configurable.
+
+To detect pauses, OpenKiosk needs a one-time permission. Android only allows this to a "notification listener", so on Google TV grant it from a computer:
+```bash
+adb shell cmd notification allow_listener com.openkiosk.tv/com.openkiosk.tv.MediaWatcherService
+```
+**Privacy:** OpenKiosk only reads whether something is playing (yes/no). It never reads titles, shows or notifications, and nothing is stored or sent.
+
+For a guest who falls asleep while an app keeps auto-playing, also turn on the TV's own *auto power off after inactivity*.
 
 ### Start automatically when the TV turns on
 
@@ -166,7 +186,27 @@ adb shell am start -n com.openkiosk.tv/.MainActivity \
 ```
 Con PIN ya configurado, los cambios por ADB requieren `--es pin <PIN actual o código del autenticador>`. El código de recuperación y el autenticador se configuran en la pantalla de la TV, porque hay que verlos para guardarlos.
 
-**Abrir ajustes después:** presiona **ATRÁS 5 veces**, o mantén **OK** 3 segundos, o presiona **MENÚ**.
+**Abrir ajustes después:** presiona **ATRÁS 5 veces**, o mantén **OK** 3 segundos, o presiona **MENÚ**. Un OK corto abre las apps del huésped.
+
+### Experiencia del huésped
+
+| Momento | Qué pasa |
+|---|---|
+| Se enciende la TV | Pantalla de bienvenida |
+| El huésped presiona **OK** | Un launcher elegante con las apps de streaming que permitió el anfitrión |
+| 5 min en el launcher sin abrir app | Regresa a la bienvenida |
+| Una app queda en pausa o sin sonido 10 min | Regresa a la bienvenida (requiere el permiso de abajo) |
+| Se está reproduciendo algo | Nunca se interrumpe |
+
+Elige las apps en Ajustes → **Apps del huésped** (si no eliges ninguna, se muestran las apps de streaming conocidas que estén instaladas). Ambos tiempos se pueden cambiar.
+
+Para detectar pausas, OpenKiosk necesita un permiso único. Android solo lo permite a un "servicio de notificaciones", así que en Google TV se concede desde una computadora:
+```bash
+adb shell cmd notification allow_listener com.openkiosk.tv/com.openkiosk.tv.MediaWatcherService
+```
+**Privacidad:** OpenKiosk solo lee si algo se está reproduciendo (sí/no). Nunca lee títulos, series ni notificaciones, y no guarda ni envía nada.
+
+Para el huésped que se duerme mientras una app sigue reproduciendo sola, activa también el *apagado automático por inactividad* de la propia TV.
 
 ### Que arranque solo al encender la TV
 

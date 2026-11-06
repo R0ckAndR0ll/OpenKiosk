@@ -12,7 +12,7 @@
     <string name="btn_save">Save</string>
     <string name="btn_home">Set as home screen</string>
     <string name="btn_system">System settings</string>
-    <string name="help_text">Open settings: press BACK 5 times, hold OK for 3 seconds, or press MENU.\n\nTo start automatically when the TV turns on, set OpenKiosk as the home screen. If your TV does not offer that option, run from a computer:\nadb shell cmd package set-home-activity com.openkiosk.tv/.MainActivity</string>
+    <string name="help_text">Guests: press OK to open their apps. Host settings: press BACK 5 times, hold OK for 3 seconds, or press MENU.\n\nTo start automatically when the TV turns on, set OpenKiosk as the home screen. If your TV does not offer that option, run from a computer:\nadb shell cmd package set-home-activity com.openkiosk.tv/.MainActivity</string>
     <string name="version_fmt">OpenKiosk %1$s · free and open source (GPL-3.0)</string>
 
     <string name="pin_title">Host PIN</string>
@@ -61,4 +61,17 @@
     <string name="err_totp">Code does not match. Check the time on your phone and try again.</string>
     <string name="sec_qr_desc">QR code for the authenticator app</string>
     <string name="err_pin">The PIN must be exactly 6 digits</string>
+
+    <string name="apps_title">Your apps</string>
+    <string name="apps_subtitle">Choose what to watch. The welcome screen comes back on its own after a few minutes.</string>
+    <string name="apps_hint">BACK · RETURN TO WELCOME</string>
+    <string name="apps_empty">No apps configured yet. The host can choose them in settings.</string>
+    <string name="btn_apps">Guest apps</string>
+    <string name="apps_dialog_title">Apps the guest can open</string>
+    <string name="apps_none_installed">No TV apps found on this device</string>
+    <string name="label_launcher_idle">Back to welcome from the apps screen after (minutes, 0 = never)</string>
+    <string name="label_media_idle">Back to welcome when an app is paused or silent for (minutes, 0 = never)</string>
+    <string name="media_status_on">Pause detection: active.</string>
+    <string name="media_status_off">Pause detection: needs a one-time permission. From a computer: adb shell cmd notification allow_listener com.openkiosk.tv/com.openkiosk.tv.MediaWatcherService</string>
+    <string name="media_service_label">OpenKiosk playback detection</string>
 </resources>
