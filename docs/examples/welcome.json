@@ -1,0 +1,59 @@
+{
+  "protocol": "openkiosk-welcome",
+  "version": 1,
+  "generated_at": "2026-11-06T06:00:00Z",
+  "ttl_minutes": 30,
+  "property": {
+    "id": "beach-4b",
+    "name": "Beach House 4B",
+    "area": "Playa del Carmen",
+    "timezone": "America/Cancun",
+    "accent": "#C9A46A",
+    "logo_url": null,
+    "background_url": null
+  },
+  "stay": {
+    "phase": "in_stay",
+    "guest_name": null,
+    "checkin": "2026-11-02",
+    "checkout": "2026-11-10",
+    "checkin_time": "15:00",
+    "checkout_time": "11:00"
+  },
+  "wifi": {
+    "ssid": "BeachHouse4B",
+    "password": "change-me",
+    "security": "WPA"
+  },
+  "host": {
+    "name": "Your host",
+    "whatsapp": "+52 000 000 0000",
+    "hours": "9:00–21:00"
+  },
+  "quiet_hours": "22:00–07:00",
+  "messages": {
+    "welcome": {
+      "es": "¡Bienvenidos! Aquí tienen todo lo que necesitan para una estancia cómoda.",
+      "en": "Welcome! Here is everything you need for a comfortable stay."
+    },
+    "checkout": {
+      "es": "Hoy es su salida, antes de las 11:00. Gracias por quedarse con nosotros.",
+      "en": "Today is your check-out, before 11:00. Thank you for staying with us."
+    },
+    "vacant": {
+      "es": "Preparando la casa para su llegada.",
+      "en": "Getting the home ready for your arrival."
+    }
+  },
+  "sections": [
+    {
+      "id": "essentials",
+      "title": { "es": "Lo esencial", "en": "Good to know" },
+      "items": [
+        { "es": "Alberca 9:00–22:00", "en": "Pool 9:00–22:00" },
+        { "es": "No fumar dentro de la casa", "en": "No smoking indoors" },
+        { "es": "Basura: contenedor junto a la entrada", "en": "Trash: bin next to the entrance" }
+      ]
+    }
+  ]
+}
