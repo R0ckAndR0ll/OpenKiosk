@@ -43,6 +43,12 @@
             android:theme="@style/Theme.OpenKiosk.Settings"
             android:windowSoftInputMode="adjustResize" />
 
+        <activity
+            android:name=".SecuritySetupActivity"
+            android:exported="false"
+            android:theme="@style/Theme.OpenKiosk.Settings"
+            android:windowSoftInputMode="adjustResize" />
+
         <receiver
             android:name=".BootReceiver"
             android:exported="true">

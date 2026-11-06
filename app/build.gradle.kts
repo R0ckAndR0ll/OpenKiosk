@@ -52,3 +52,8 @@ android {
         checkReleaseBuilds = false
     }
 }
+
+dependencies {
+    // Generación local de códigos QR (3.3.x es compatible con Android 5.1+ sin desugaring).
+    implementation("com.google.zxing:core:3.3.3")
+}

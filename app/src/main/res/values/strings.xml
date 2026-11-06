@@ -6,7 +6,6 @@
     <string name="settings_subtitle">Configure the welcome screen this TV will show to your guests.</string>
     <string name="label_url">Welcome page URL (https)</string>
     <string name="hint_url">https://your-site.com/?casa=1</string>
-    <string name="label_pin">Host PIN (4 to 8 digits, empty = no PIN)</string>
     <string name="label_reload">Full reload every (minutes, 0 = never)</string>
     <string name="label_hosts">Extra allowed domains (comma separated, optional)</string>
     <string name="hint_hosts">fonts.example.com, cdn.example.com</string>
@@ -25,10 +24,41 @@
     <string name="toast_no_settings">System settings are not available on this device</string>
     <string name="toast_home_hint">Use: adb shell cmd package set-home-activity com.openkiosk.tv/.MainActivity</string>
     <string name="err_url">Enter a valid https:// address</string>
-    <string name="err_pin">The PIN must be 4 to 8 digits</string>
 
     <string name="offline_title">Connecting…</string>
     <string name="offline_body">The welcome screen will appear as soon as the internet connection is back.</string>
     <string name="setup_title">OpenKiosk</string>
     <string name="setup_body">This TV is not configured yet. Press BACK 5 times to open the settings.</string>
+
+    <string name="label_name">Property name</string>
+    <string name="hint_name">Beach House 4B</string>
+    <string name="label_pin_new">Create a 6-digit host PIN (required)</string>
+    <string name="label_pin_required">Set a new 6-digit PIN (required)</string>
+    <string name="label_pin_change">New 6-digit PIN (leave empty to keep the current one)</string>
+    <string name="btn_security">Recovery and authenticator</string>
+    <string name="sec_status_on">Authenticator app: active. You can open settings with its code instead of the PIN.</string>
+    <string name="sec_status_off">Authenticator app: not set up. Recommended so you never get locked out.</string>
+    <string name="pin_msg">Enter the host PIN.</string>
+    <string name="pin_msg_totp">Enter the host PIN or the current code from your authenticator app.</string>
+    <string name="btn_forgot">Forgot PIN</string>
+    <string name="recovery_title">Recovery code</string>
+    <string name="recovery_msg">Enter the 12-character recovery code you saved when you created the PIN. It works only once.</string>
+    <string name="recovery_hint">XXXX-XXXX-XXXX</string>
+    <string name="toast_bad_recovery">Wrong recovery code</string>
+    <string name="toast_locked">Too many attempts. Try again in %1$d min.</string>
+    <string name="err_pin_first">Create a PIN first</string>
+    <string name="sec_title">Protect your kiosk</string>
+    <string name="sec_subtitle">Save these two things now. They are the only way back in if you forget the PIN.</string>
+    <string name="sec_step1">1 · RECOVERY CODE</string>
+    <string name="sec_recovery_help">Write it in your password manager. It is shown only this time and works once.</string>
+    <string name="sec_step2">2 · AUTHENTICATOR APP</string>
+    <string name="sec_totp_help">Scan the QR with Google Authenticator, Microsoft Authenticator, Authy or similar, then type the 6-digit code it shows.</string>
+    <string name="hint_totp">123456</string>
+    <string name="btn_totp_confirm">Activate</string>
+    <string name="btn_totp_skip">Not now</string>
+    <string name="toast_totp_on">Authenticator activated</string>
+    <string name="toast_totp_skipped">Saved. You can set up the authenticator later from settings.</string>
+    <string name="err_totp">Code does not match. Check the time on your phone and try again.</string>
+    <string name="sec_qr_desc">QR code for the authenticator app</string>
+    <string name="err_pin">The PIN must be exactly 6 digits</string>
 </resources>

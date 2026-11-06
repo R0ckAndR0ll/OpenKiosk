@@ -39,7 +39,8 @@
 
 Open OpenKiosk. The first time it shows the settings screen:
 - **Welcome page URL** (must be `https://`)
-- **Host PIN** (4–8 digits; strongly recommended)
+- **Property name**
+- **Host PIN** (exactly 6 digits, required)
 - **Reload interval** (minutes, `0` = never)
 - **Extra allowed domains** (optional, e.g. a CDN your page needs for navigation)
 
@@ -47,10 +48,11 @@ Or set it from a computer, without the remote:
 ```bash
 adb shell am start -n com.openkiosk.tv/.MainActivity \
   --es url "https://your-site.com/?house=1" \
-  --es set_pin 1234 \
+  --es name "Beach House 4B" \
+  --es set_pin 123456 \
   --es reload_minutes 60
 ```
-Once a PIN is set, changing the URL by ADB requires `--es pin <current PIN>`.
+Once a PIN exists, changes by ADB require `--es pin <current PIN or authenticator code>`. The recovery code and the authenticator are set up on the TV screen, because they must be seen to be saved.
 
 **Open settings later:** press **BACK 5 times**, or hold **OK** for 3 seconds, or press **MENU**.
 
@@ -80,7 +82,21 @@ Any web page works. A good one shows: guest name, check-in/out, WiFi with a QR c
 - Only `https://` pages are allowed; plain `http` is blocked.
 - Navigation is restricted to the configured domain and its subdomains.
 - File and content access from the web view is disabled, and pop-up windows are blocked.
-- Set a PIN. Without one, anyone with ADB access to the TV could change the URL.
+- The PIN is stored as a salted PBKDF2 hash, never in plain text. Settings screens block screenshots.
+- **Turn off network ADB after setup**, or keep the TV on a network separate from the guest WiFi. Otherwise any guest with a laptop could try to connect to it.
+
+### Host PIN and recovery
+
+OpenKiosk is used rarely by the host, so forgetting the PIN is expected. There are four ways back in, from most to least convenient:
+
+| Method | You need | Notes |
+|---|---|---|
+| Authenticator app (TOTP) | Your phone | Scan a QR once when you create the PIN. Its 6-digit code also opens settings instead of the PIN. Works offline. |
+| Recovery code | The 12-character code shown once | Save it in your password manager. Single use; a new one is generated after using it. |
+| Signed reset from your welcome provider | Access to your provider | Planned for v0.3. |
+| Clear app data with ADB | A computer already authorized on that TV | `adb shell pm clear com.openkiosk.tv`, then configure again. |
+
+Wrong attempts lock the screen progressively: 5 errors = 1 min, then 5 min, 15 min and 1 hour. The lock survives reboots. There is no master PIN and no unsigned remote reset, on purpose.
 
 ### Build from source
 
@@ -135,7 +151,8 @@ Ideas and pull requests are welcome.
 
 Abre OpenKiosk. La primera vez muestra los ajustes:
 - **URL de la pantalla de bienvenida** (debe ser `https://`)
-- **PIN del anfitrión** (4 a 8 dígitos; muy recomendado)
+- **Nombre de la propiedad**
+- **PIN del anfitrión** (exactamente 6 dígitos, obligatorio)
 - **Recarga** (minutos, `0` = nunca)
 - **Dominios extra permitidos** (opcional)
 
@@ -143,10 +160,11 @@ O desde una computadora, sin el control:
 ```bash
 adb shell am start -n com.openkiosk.tv/.MainActivity \
   --es url "https://tu-sitio.com/?casa=1" \
-  --es set_pin 1234 \
+  --es name "Casa de Playa 4B" \
+  --es set_pin 123456 \
   --es reload_minutes 60
 ```
-Con PIN ya configurado, para cambiar la URL por ADB hay que agregar `--es pin <PIN actual>`.
+Con PIN ya configurado, los cambios por ADB requieren `--es pin <PIN actual o código del autenticador>`. El código de recuperación y el autenticador se configuran en la pantalla de la TV, porque hay que verlos para guardarlos.
 
 **Abrir ajustes después:** presiona **ATRÁS 5 veces**, o mantén **OK** 3 segundos, o presiona **MENÚ**.
 
@@ -176,7 +194,21 @@ Sirve cualquier página web. Una buena muestra: nombre del huésped, check-in/ou
 - Solo se permiten páginas `https://`; `http` simple se bloquea.
 - La navegación se limita al dominio configurado y sus subdominios.
 - El acceso a archivos desde la vista web está desactivado y las ventanas emergentes se bloquean.
-- Pon un PIN. Sin PIN, cualquiera con acceso ADB a la TV podría cambiar la URL.
+- El PIN se guarda como hash PBKDF2 con sal, nunca en texto plano. Las pantallas de ajustes bloquean capturas.
+- **Apaga el ADB por red al terminar de configurar**, o deja la TV en una red separada del WiFi de huéspedes. Si no, cualquier huésped con una laptop podría intentar conectarse.
+
+### PIN del anfitrión y recuperación
+
+El anfitrión usa OpenKiosk muy de vez en cuando, así que olvidar el PIN es normal. Hay cuatro formas de volver a entrar, de la más cómoda a la de último recurso:
+
+| Método | Necesitas | Notas |
+|---|---|---|
+| App autenticadora (TOTP) | Tu teléfono | Escaneas un QR una vez al crear el PIN. Su código de 6 dígitos también abre los ajustes en lugar del PIN. Funciona sin internet. |
+| Código de recuperación | El código de 12 caracteres que se muestra una vez | Guárdalo en tu gestor de contraseñas. Es de un solo uso; al usarlo se genera otro. |
+| Reset firmado desde tu proveedor de bienvenida | Acceso a tu proveedor | Planeado para la v0.3. |
+| Borrar datos de la app con ADB | Una computadora ya autorizada en esa TV | `adb shell pm clear com.openkiosk.tv` y vuelves a configurar. |
+
+Los intentos fallidos bloquean de forma progresiva: 5 errores = 1 min, luego 5 min, 15 min y 1 hora. El bloqueo sobrevive a reinicios. No hay PIN maestro ni reseteo remoto sin firma, a propósito.
 
 ### Licencia
 

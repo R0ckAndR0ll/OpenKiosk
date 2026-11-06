@@ -2,7 +2,10 @@ package com.openkiosk.tv
 
 import android.content.Context
 
-/** Configuración guardada en el dispositivo. Todo vive local: sin nube, sin cuentas. */
+/**
+ * Configuración guardada en el dispositivo. Todo vive local: sin nube, sin cuentas.
+ * El PIN y los secretos de recuperación viven aparte, en [SecurityStore].
+ */
 class Prefs(context: Context) {
 
     private val sp = context.getSharedPreferences("openkiosk", Context.MODE_PRIVATE)
@@ -12,10 +15,10 @@ class Prefs(context: Context) {
         get() = sp.getString(K_URL, "") ?: ""
         set(v) = sp.edit().putString(K_URL, v).apply()
 
-    /** PIN del anfitrión para entrar a ajustes (vacío = sin PIN). */
-    var pin: String
-        get() = sp.getString(K_PIN, "") ?: ""
-        set(v) = sp.edit().putString(K_PIN, v).apply()
+    /** Nombre de la propiedad (se usa en el autenticador y en las pantallas de la app). */
+    var propertyName: String
+        get() = sp.getString(K_NAME, "") ?: ""
+        set(v) = sp.edit().putString(K_NAME, v).apply()
 
     /** Recarga completa cada N minutos (0 = nunca). */
     var reloadMinutes: Int
@@ -31,10 +34,8 @@ class Prefs(context: Context) {
 
     companion object {
         private const val K_URL = "url"
-        private const val K_PIN = "pin"
+        private const val K_NAME = "property_name"
         private const val K_RELOAD = "reload_minutes"
         private const val K_HOSTS = "extra_hosts"
-
-        fun isValidPin(p: String): Boolean = p.matches(Regex("\\d{4,8}"))
     }
 }

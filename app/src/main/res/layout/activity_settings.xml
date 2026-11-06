@@ -19,10 +19,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="serif"
             android:text="@string/settings_title"
             android:textColor="@color/ok_ink"
-            android:textSize="28sp"
-            android:textStyle="bold" />
+            android:textSize="32sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -31,85 +31,136 @@
             android:layout_marginBottom="24dp"
             android:text="@string/settings_subtitle"
             android:textColor="@color/ok_muted"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label_url"
-            android:textColor="@color/ok_sea"
-            android:textSize="14sp" />
-
-        <EditText
-            android:id="@+id/url"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:hint="@string/hint_url"
-            android:importantForAutofill="no"
-            android:inputType="textUri"
-            android:singleLine="true"
-            android:textColor="@color/ok_ink"
-            android:textColorHint="@color/ok_muted" />
+            android:baselineAligned="false"
+            android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label_pin"
-            android:textColor="@color/ok_sea"
-            android:textSize="14sp" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/pin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:importantForAutofill="no"
-            android:inputType="numberPassword"
-            android:maxLength="8"
-            android:singleLine="true"
-            android:textColor="@color/ok_ink" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_name"
+                    android:textColor="@color/ok_sea"
+                    android:textSize="13sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label_reload"
-            android:textColor="@color/ok_sea"
-            android:textSize="14sp" />
+                <EditText
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:hint="@string/hint_name"
+                    android:importantForAutofill="no"
+                    android:inputType="textCapWords"
+                    android:maxLength="60"
+                    android:singleLine="true"
+                    android:textColor="@color/ok_ink"
+                    android:textColorHint="@color/ok_muted" />
 
-        <EditText
-            android:id="@+id/reload"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:importantForAutofill="no"
-            android:inputType="number"
-            android:maxLength="4"
-            android:singleLine="true"
-            android:textColor="@color/ok_ink" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_url"
+                    android:textColor="@color/ok_sea"
+                    android:textSize="13sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label_hosts"
-            android:textColor="@color/ok_sea"
-            android:textSize="14sp" />
+                <EditText
+                    android:id="@+id/url"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:hint="@string/hint_url"
+                    android:importantForAutofill="no"
+                    android:inputType="textUri"
+                    android:singleLine="true"
+                    android:textColor="@color/ok_ink"
+                    android:textColorHint="@color/ok_muted" />
 
-        <EditText
-            android:id="@+id/hosts"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:hint="@string/hint_hosts"
-            android:importantForAutofill="no"
-            android:inputType="textUri"
-            android:singleLine="true"
-            android:textColor="@color/ok_ink"
-            android:textColorHint="@color/ok_muted" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_hosts"
+                    android:textColor="@color/ok_sea"
+                    android:textSize="13sp" />
+
+                <EditText
+                    android:id="@+id/hosts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_hosts"
+                    android:importantForAutofill="no"
+                    android:inputType="textUri"
+                    android:singleLine="true"
+                    android:textColor="@color/ok_ink"
+                    android:textColorHint="@color/ok_muted" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/pin_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_pin_change"
+                    android:textColor="@color/ok_sea"
+                    android:textSize="13sp" />
+
+                <EditText
+                    android:id="@+id/pin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:importantForAutofill="no"
+                    android:inputType="numberPassword"
+                    android:maxLength="6"
+                    android:singleLine="true"
+                    android:textColor="@color/ok_ink" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_reload"
+                    android:textColor="@color/ok_sea"
+                    android:textSize="13sp" />
+
+                <EditText
+                    android:id="@+id/reload"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:singleLine="true"
+                    android:textColor="@color/ok_ink" />
+
+                <TextView
+                    android:id="@+id/security_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/ok_muted"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:orientation="horizontal">
 
             <Button
@@ -118,6 +169,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
                 android:text="@string/btn_save" />
+
+            <Button
+                android:id="@+id/security"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:text="@string/btn_security" />
 
             <Button
                 android:id="@+id/home_settings"

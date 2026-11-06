@@ -4,7 +4,6 @@
     <string name="settings_subtitle">Configura la pantalla de bienvenida que esta TV mostrará a tus huéspedes.</string>
     <string name="label_url">URL de la pantalla de bienvenida (https)</string>
     <string name="hint_url">https://tu-sitio.com/?casa=1</string>
-    <string name="label_pin">PIN del anfitrión (4 a 8 dígitos, vacío = sin PIN)</string>
     <string name="label_reload">Recarga completa cada (minutos, 0 = nunca)</string>
     <string name="label_hosts">Dominios extra permitidos (separados por coma, opcional)</string>
     <string name="hint_hosts">fonts.ejemplo.com, cdn.ejemplo.com</string>
@@ -23,10 +22,41 @@
     <string name="toast_no_settings">Los ajustes del sistema no están disponibles en este equipo</string>
     <string name="toast_home_hint">Usa: adb shell cmd package set-home-activity com.openkiosk.tv/.MainActivity</string>
     <string name="err_url">Escribe una dirección https:// válida</string>
-    <string name="err_pin">El PIN debe tener de 4 a 8 dígitos</string>
 
     <string name="offline_title">Conectando…</string>
     <string name="offline_body">La pantalla de bienvenida aparecerá en cuanto regrese la conexión a internet.</string>
     <string name="setup_title">OpenKiosk</string>
     <string name="setup_body">Esta TV aún no está configurada. Presiona ATRÁS 5 veces para abrir los ajustes.</string>
+
+    <string name="label_name">Nombre de la propiedad</string>
+    <string name="hint_name">Casa de Playa 4B</string>
+    <string name="label_pin_new">Crea un PIN de anfitrión de 6 dígitos (obligatorio)</string>
+    <string name="label_pin_required">Pon un PIN nuevo de 6 dígitos (obligatorio)</string>
+    <string name="label_pin_change">PIN nuevo de 6 dígitos (vacío = conservar el actual)</string>
+    <string name="btn_security">Recuperación y autenticador</string>
+    <string name="sec_status_on">App autenticadora: activa. Puedes abrir los ajustes con su código en lugar del PIN.</string>
+    <string name="sec_status_off">App autenticadora: sin configurar. Recomendada para que nunca te quedes fuera.</string>
+    <string name="pin_msg">Escribe el PIN del anfitrión.</string>
+    <string name="pin_msg_totp">Escribe el PIN del anfitrión o el código actual de tu app autenticadora.</string>
+    <string name="btn_forgot">Olvidé el PIN</string>
+    <string name="recovery_title">Código de recuperación</string>
+    <string name="recovery_msg">Escribe el código de 12 caracteres que guardaste al crear el PIN. Solo funciona una vez.</string>
+    <string name="recovery_hint">XXXX-XXXX-XXXX</string>
+    <string name="toast_bad_recovery">Código de recuperación incorrecto</string>
+    <string name="toast_locked">Demasiados intentos. Intenta de nuevo en %1$d min.</string>
+    <string name="err_pin_first">Primero crea un PIN</string>
+    <string name="sec_title">Protege tu kiosco</string>
+    <string name="sec_subtitle">Guarda estas dos cosas ahora. Son la única forma de volver a entrar si olvidas el PIN.</string>
+    <string name="sec_step1">1 · CÓDIGO DE RECUPERACIÓN</string>
+    <string name="sec_recovery_help">Guárdalo en tu gestor de contraseñas. Solo se muestra esta vez y funciona una sola vez.</string>
+    <string name="sec_step2">2 · APP AUTENTICADORA</string>
+    <string name="sec_totp_help">Escanea el QR con Google Authenticator, Microsoft Authenticator, Authy o similar, y escribe el código de 6 dígitos que muestra.</string>
+    <string name="hint_totp">123456</string>
+    <string name="btn_totp_confirm">Activar</string>
+    <string name="btn_totp_skip">Ahora no</string>
+    <string name="toast_totp_on">Autenticador activado</string>
+    <string name="toast_totp_skipped">Guardado. Puedes configurar el autenticador después desde los ajustes.</string>
+    <string name="err_totp">El código no coincide. Revisa la hora de tu teléfono e intenta de nuevo.</string>
+    <string name="sec_qr_desc">Código QR para la app autenticadora</string>
+    <string name="err_pin">El PIN debe tener exactamente 6 dígitos</string>
 </resources>

@@ -8,44 +8,65 @@ import android.widget.Toast
  * Configuración remota por ADB, para no tener que teclear con el control:
  *
  *   adb shell am start -n com.openkiosk.tv/.MainActivity \
- *     --es url "https://tu-sitio.com/?casa=1" --es set_pin 1234
+ *     --es url "https://tu-sitio.com/?casa=1" --es name "Casa de Playa 4B" --es set_pin 123456
  *
- * Si ya hay un PIN configurado, hay que mandarlo con --es pin <PIN actual>.
+ * Si ya hay un PIN, hay que mandar --es pin <PIN actual o código del autenticador>.
+ * Los intentos fallidos cuentan para el bloqueo progresivo igual que en la pantalla.
+ * El código de recuperación y el autenticador se configuran en la TV (necesitan verse en pantalla).
  */
 object Provisioning {
     const val EXTRA_URL = "url"
+    const val EXTRA_NAME = "name"
     const val EXTRA_PIN = "pin"
     const val EXTRA_SET_PIN = "set_pin"
     const val EXTRA_RELOAD = "reload_minutes"
     const val EXTRA_HOSTS = "allowed_hosts"
 
+    private val ALL = listOf(EXTRA_URL, EXTRA_NAME, EXTRA_PIN, EXTRA_SET_PIN, EXTRA_RELOAD, EXTRA_HOSTS)
+
     /** @return true si se aplicó una configuración nueva. */
     fun apply(context: Context, prefs: Prefs, intent: Intent?): Boolean {
-        if (intent == null) return false
-        val url = intent.getStringExtra(EXTRA_URL) ?: return false
+        if (intent == null || ALL.none { intent.hasExtra(it) }) return false
+        val sec = SecurityStore(context)
+        try {
+            if (sec.hasPin) {
+                when (sec.verifyPinOrTotp(intent.getStringExtra(EXTRA_PIN) ?: "")) {
+                    SecurityStore.Result.OK_PIN, SecurityStore.Result.OK_TOTP -> Unit
+                    SecurityStore.Result.LOCKED -> {
+                        toast(context, context.getString(R.string.toast_locked, minutes(sec.lockRemainingMs())))
+                        return false
+                    }
+                    else -> {
+                        toast(context, context.getString(R.string.toast_bad_pin))
+                        return false
+                    }
+                }
+            }
 
-        val currentPin = prefs.pin
-        if (currentPin.isNotEmpty() && intent.getStringExtra(EXTRA_PIN) != currentPin) {
-            Toast.makeText(context, R.string.toast_bad_pin, Toast.LENGTH_LONG).show()
-            clear(intent)
-            return false
+            val url = intent.getStringExtra(EXTRA_URL)
+            if (url != null) {
+                if (!UrlPolicy.isValidHomeUrl(url)) {
+                    toast(context, context.getString(R.string.toast_invalid_url))
+                    return false
+                }
+                prefs.url = url.trim()
+            }
+            intent.getStringExtra(EXTRA_NAME)?.let { prefs.propertyName = it.trim().take(60) }
+            intent.getStringExtra(EXTRA_RELOAD)?.toIntOrNull()?.let { prefs.reloadMinutes = it.coerceIn(0, 1440) }
+            intent.getStringExtra(EXTRA_HOSTS)?.let { prefs.extraHosts = it.trim() }
+            intent.getStringExtra(EXTRA_SET_PIN)?.let {
+                if (SecurityStore.isValidPin(it)) sec.setPin(it)
+                else toast(context, context.getString(R.string.err_pin))
+            }
+            toast(context, context.getString(R.string.toast_saved))
+            return true
+        } finally {
+            ALL.forEach { intent.removeExtra(it) }
         }
-        if (!UrlPolicy.isValidHomeUrl(url)) {
-            Toast.makeText(context, R.string.toast_invalid_url, Toast.LENGTH_LONG).show()
-            clear(intent)
-            return false
-        }
-
-        prefs.url = url.trim()
-        intent.getStringExtra(EXTRA_SET_PIN)?.let { if (Prefs.isValidPin(it)) prefs.pin = it }
-        intent.getStringExtra(EXTRA_RELOAD)?.toIntOrNull()?.let { prefs.reloadMinutes = it.coerceIn(0, 1440) }
-        intent.getStringExtra(EXTRA_HOSTS)?.let { prefs.extraHosts = it.trim() }
-        clear(intent)
-        Toast.makeText(context, R.string.toast_saved, Toast.LENGTH_SHORT).show()
-        return true
     }
 
-    private fun clear(intent: Intent) {
-        listOf(EXTRA_URL, EXTRA_PIN, EXTRA_SET_PIN, EXTRA_RELOAD, EXTRA_HOSTS).forEach { intent.removeExtra(it) }
-    }
+    fun minutes(ms: Long): Long = maxOf(1L, (ms + 59_999L) / 60_000L)
+
+    private fun toast(context: Context, msg: String) =
+        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
 }
