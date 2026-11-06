@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">Ajustes de OpenKiosk</string>
+    <string name="settings_subtitle">Configura la pantalla de bienvenida que esta TV mostrará a tus huéspedes.</string>
+    <string name="label_url">URL de la pantalla de bienvenida (https)</string>
+    <string name="hint_url">https://tu-sitio.com/?casa=1</string>
+    <string name="label_pin">PIN del anfitrión (4 a 8 dígitos, vacío = sin PIN)</string>
+    <string name="label_reload">Recarga completa cada (minutos, 0 = nunca)</string>
+    <string name="label_hosts">Dominios extra permitidos (separados por coma, opcional)</string>
+    <string name="hint_hosts">fonts.ejemplo.com, cdn.ejemplo.com</string>
+    <string name="btn_save">Guardar</string>
+    <string name="btn_home">Usar como pantalla de inicio</string>
+    <string name="btn_system">Ajustes del sistema</string>
+    <string name="help_text">Abrir ajustes: presiona ATRÁS 5 veces, mantén OK 3 segundos, o presiona MENÚ.\n\nPara que arranque solo al encender la TV, pon OpenKiosk como pantalla de inicio. Si tu TV no ofrece esa opción, desde una computadora ejecuta:\nadb shell cmd package set-home-activity com.openkiosk.tv/.MainActivity</string>
+    <string name="version_fmt">OpenKiosk %1$s · libre y de código abierto (GPL-3.0)</string>
+
+    <string name="pin_title">PIN del anfitrión</string>
+    <string name="pin_hint">Escribe el PIN</string>
+
+    <string name="toast_bad_pin">PIN incorrecto</string>
+    <string name="toast_saved">Guardado</string>
+    <string name="toast_invalid_url">URL inválida. Debe empezar con https://</string>
+    <string name="toast_no_settings">Los ajustes del sistema no están disponibles en este equipo</string>
+    <string name="toast_home_hint">Usa: adb shell cmd package set-home-activity com.openkiosk.tv/.MainActivity</string>
+    <string name="err_url">Escribe una dirección https:// válida</string>
+    <string name="err_pin">El PIN debe tener de 4 a 8 dígitos</string>
+
+    <string name="offline_title">Conectando…</string>
+    <string name="offline_body">La pantalla de bienvenida aparecerá en cuanto regrese la conexión a internet.</string>
+    <string name="setup_title">OpenKiosk</string>
+    <string name="setup_body">Esta TV aún no está configurada. Presiona ATRÁS 5 veces para abrir los ajustes.</string>
+</resources>

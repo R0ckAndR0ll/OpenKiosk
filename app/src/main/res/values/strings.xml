@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">OpenKiosk</string>
+
+    <string name="settings_title">OpenKiosk settings</string>
+    <string name="settings_subtitle">Configure the welcome screen this TV will show to your guests.</string>
+    <string name="label_url">Welcome page URL (https)</string>
+    <string name="hint_url">https://your-site.com/?casa=1</string>
+    <string name="label_pin">Host PIN (4 to 8 digits, empty = no PIN)</string>
+    <string name="label_reload">Full reload every (minutes, 0 = never)</string>
+    <string name="label_hosts">Extra allowed domains (comma separated, optional)</string>
+    <string name="hint_hosts">fonts.example.com, cdn.example.com</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_home">Set as home screen</string>
+    <string name="btn_system">System settings</string>
+    <string name="help_text">Open settings: press BACK 5 times, hold OK for 3 seconds, or press MENU.\n\nTo start automatically when the TV turns on, set OpenKiosk as the home screen. If your TV does not offer that option, run from a computer:\nadb shell cmd package set-home-activity com.openkiosk.tv/.MainActivity</string>
+    <string name="version_fmt">OpenKiosk %1$s · free and open source (GPL-3.0)</string>
+
+    <string name="pin_title">Host PIN</string>
+    <string name="pin_hint">Enter PIN</string>
+
+    <string name="toast_bad_pin">Wrong PIN</string>
+    <string name="toast_saved">Saved</string>
+    <string name="toast_invalid_url">Invalid URL. It must start with https://</string>
+    <string name="toast_no_settings">System settings are not available on this device</string>
+    <string name="toast_home_hint">Use: adb shell cmd package set-home-activity com.openkiosk.tv/.MainActivity</string>
+    <string name="err_url">Enter a valid https:// address</string>
+    <string name="err_pin">The PIN must be 4 to 8 digits</string>
+
+    <string name="offline_title">Connecting…</string>
+    <string name="offline_body">The welcome screen will appear as soon as the internet connection is back.</string>
+    <string name="setup_title">OpenKiosk</string>
+    <string name="setup_body">This TV is not configured yet. Press BACK 5 times to open the settings.</string>
+</resources>

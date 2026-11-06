@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ok_bg">#0E1A1C</color>
+    <color name="ok_panel">#17302F</color>
+    <color name="ok_ink">#F3EFE6</color>
+    <color name="ok_muted">#A9C0B9</color>
+    <color name="ok_sea">#5FC9C0</color>
+    <color name="ok_gold">#E7B24A</color>
+</resources>
